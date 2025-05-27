@@ -1,4 +1,3 @@
-# timetable
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -264,7 +263,7 @@
 <body>
     <div class="container">
         <h1>📚 45-Day Study Timetable</h1>
-        <p class="subtitle">Physics (2.5 hrs/day) • Mathematics (3.5 hrs/day) • May 25 - July 8, 2025</p>
+        <p class="subtitle">Physics (2.5 hrs/day) • Mathematics (3.5 hrs/day) • June 1 - July 15, 2025</p>
         
         <div class="legend">
             <div class="legend-item physics-legend">
@@ -414,7 +413,7 @@
             "Vectors - Dot product & cross product applications"
         ];
 
-        // Generate dates starting from May 25, 2025
+        // Generate dates starting from June 1, 2025
         function generateDates(startDate, days) {
             const dates = [];
             const current = new Date(startDate);
@@ -439,7 +438,7 @@
 
         // Generate timetable
         function generateTimetable() {
-            const startDate = new Date('2025-05-25');
+            const startDate = new Date('2025-06-01');
             const dates = generateDates(startDate, 45);
             const tbody = document.getElementById('timetableBody');
             
@@ -474,7 +473,8 @@
 
         // Load saved data from localStorage
         function loadSavedData() {
-            const savedData = localStorage.getItem('studyTimetableProgress');
+            // Note: Using a different key for June start to avoid conflicts
+            const savedData = localStorage.getItem('studyTimetableProgressJune');
             if (savedData) {
                 const progressData = JSON.parse(savedData);
                 
@@ -510,7 +510,7 @@
                 progressData[box.dataset.day] = 'missed';
             });
             
-            localStorage.setItem('studyTimetableProgress', JSON.stringify(progressData));
+            localStorage.setItem('studyTimetableProgressJune', JSON.stringify(progressData));
         }
 
         // Handle checkbox clicks
@@ -559,7 +559,7 @@
         // Clear all saved data
         function clearAllData() {
             if (confirm('Are you sure you want to clear all your progress? This cannot be undone!')) {
-                localStorage.removeItem('studyTimetableProgress');
+                localStorage.removeItem('studyTimetableProgressJune');
                 
                 // Reset all checkboxes
                 document.querySelectorAll('.custom-checkbox').forEach(box => {
