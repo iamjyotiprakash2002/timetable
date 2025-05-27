@@ -264,7 +264,7 @@
 <body>
     <div class="container">
         <h1>📚 45-Day Study Timetable</h1>
-        <p class="subtitle">Physics (2.5 hrs/day) • Mathematics (3.5 hrs/day) • June 1 - July 15, 2025</p>
+        <p class="subtitle">Physics (2.5 hrs/day) • Mathematics (3.5 hrs/day) • May 28 - July 11, 2025</p>
         
         <div class="legend">
             <div class="legend-item physics-legend">
