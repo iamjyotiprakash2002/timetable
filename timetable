@@ -438,7 +438,7 @@
 
         // Generate timetable
         function generateTimetable() {
-            const startDate = new Date('2025-05-25');
+            const startDate = new Date('2025-05-28');
             const dates = generateDates(startDate, 45);
             const tbody = document.getElementById('timetableBody');
             
