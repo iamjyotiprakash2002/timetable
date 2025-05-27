@@ -414,7 +414,7 @@
             "Vectors - Dot product & cross product applications"
         ];
 
-        // Generate dates starting from June 1, 2025
+        // Generate dates starting from May 28, 2025
         function generateDates(startDate, days) {
             const dates = [];
             const current = new Date(startDate);
@@ -439,7 +439,7 @@
 
         // Generate timetable
         function generateTimetable() {
-            const startDate = new Date('2025-06-01');
+            const startDate = new Date('2025-05-28');
             const dates = generateDates(startDate, 45);
             const tbody = document.getElementById('timetableBody');
             
