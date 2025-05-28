@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +14,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -134,27 +133,56 @@
         }
         
         .checkbox-cell {
-            min-width: 100px;
+            min-width: 150px;
+            padding: 8px;
         }
         
-        .checkbox-container {
+        .subject-checkbox-container {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            flex-direction: column;
+            gap: 8px;
             align-items: center;
         }
         
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .subject-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 45px;
+            text-align: right;
+        }
+        
+        .physics-label {
+            color: #c0392b;
+        }
+        
+        .math-label {
+            color: #2d3436;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 5px;
+        }
+        
         .custom-checkbox {
-            width: 25px;
-            height: 25px;
+            width: 22px;
+            height: 22px;
             border: 2px solid #ddd;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             position: relative;
+            font-size: 0.75rem;
         }
         
         .custom-checkbox.checked {
@@ -171,7 +199,11 @@
         
         .custom-checkbox:hover {
             transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .progress-container {
+            margin: 20px 0;
         }
         
         .progress-bar {
@@ -179,17 +211,28 @@
             height: 20px;
             background: #ecf0f1;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 10px 0;
             overflow: hidden;
             position: relative;
         }
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(45deg, #00b894, #00cec9);
             width: 0%;
             transition: width 0.5s ease;
             border-radius: 10px;
+        }
+        
+        .physics-progress {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+        
+        .math-progress {
+            background: linear-gradient(45deg, #4834d4, #686de0);
+        }
+        
+        .overall-progress {
+            background: linear-gradient(45deg, #00b894, #00cec9);
         }
         
         .progress-text {
@@ -197,38 +240,59 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #2c3e50;
+            color: white;
             font-weight: 600;
             font-size: 0.85rem;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .progress-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
+            margin: 20px 0;
         }
         
         .stat-card {
             background: linear-gradient(45deg, #74b9ff, #0984e3);
             color: white;
-            padding: 15px 25px;
+            padding: 15px 20px;
             border-radius: 10px;
             text-align: center;
-            min-width: 150px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
+        .physics-stat {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+        
+        .math-stat {
+            background: linear-gradient(45deg, #4834d4, #686de0);
+        }
+        
+        .reset-stat {
+            background: linear-gradient(45deg, #e17055, #d63031);
+            cursor: pointer;
+        }
+        
         .stat-number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             display: block;
         }
         
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.9;
+            margin-top: 5px;
         }
         
         @media (max-width: 768px) {
@@ -238,16 +302,31 @@
             }
             
             table {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
             }
             
             th, td {
-                padding: 8px 4px;
+                padding: 6px 4px;
             }
             
             .physics-cell, .math-cell {
-                min-width: 150px;
+                min-width: 140px;
                 padding-left: 8px;
+            }
+            
+            .checkbox-cell {
+                min-width: 120px;
+            }
+            
+            .custom-checkbox {
+                width: 18px;
+                height: 18px;
+                font-size: 0.7rem;
+            }
+            
+            .subject-label {
+                font-size: 0.7rem;
+                min-width: 35px;
             }
             
             h1 {
@@ -257,6 +336,10 @@
             .legend {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
         }
     </style>
@@ -276,27 +359,52 @@
         </div>
         
         <div class="stats">
-            <div class="stat-card">
-                <span class="stat-number" id="completedDays">0</span>
-                <span class="stat-label">Days Completed</span>
+            <div class="stat-card physics-stat">
+                <span class="stat-number" id="physicsCompleted">0</span>
+                <span class="stat-label">🔬 Physics Completed</span>
+            </div>
+            <div class="stat-card math-stat">
+                <span class="stat-number" id="mathCompleted">0</span>
+                <span class="stat-label">📐 Math Completed</span>
             </div>
             <div class="stat-card">
                 <span class="stat-number" id="totalHours">0</span>
-                <span class="stat-label">Hours Studied</span>
+                <span class="stat-label">Total Hours Studied</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number" id="successRate">0%</span>
-                <span class="stat-label">Success Rate</span>
+                <span class="stat-number" id="overallProgress">0%</span>
+                <span class="stat-label">Overall Progress</span>
             </div>
-            <div class="stat-card" style="background: linear-gradient(45deg, #e17055, #d63031); cursor: pointer;" onclick="clearAllData()" title="Clear all progress data">
+            <div class="stat-card reset-stat" onclick="clearAllData()" title="Clear all progress data">
                 <span class="stat-number">🗑️</span>
                 <span class="stat-label">Reset Data</span>
             </div>
         </div>
         
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-            <div class="progress-text" id="progressText">0% Complete</div>
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>🔬 Physics Progress</span>
+                <span id="physicsProgressText">0/45</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill physics-progress" id="physicsProgressFill"></div>
+            </div>
+            
+            <div class="progress-label">
+                <span>📐 Mathematics Progress</span>
+                <span id="mathProgressText">0/45</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill math-progress" id="mathProgressFill"></div>
+            </div>
+            
+            <div class="progress-label">
+                <span>📊 Overall Progress</span>
+                <span id="overallProgressText">0/90</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill overall-progress" id="overallProgressFill"></div>
+            </div>
         </div>
         
         <table>
@@ -306,7 +414,7 @@
                     <th>Date</th>
                     <th>🔬 Physics Topics (2.5 hrs)</th>
                     <th>📐 Mathematics Topics (3.5 hrs)</th>
-                    <th>Progress</th>
+                    <th>Progress Tracking</th>
                 </tr>
             </thead>
             <tbody id="timetableBody">
@@ -452,12 +560,20 @@
                     <td class="physics-cell">${physicsTopics[i]}</td>
                     <td class="math-cell">${mathTopics[i]}</td>
                     <td class="checkbox-cell">
-                        <div class="checkbox-container">
-                            <div class="custom-checkbox" data-day="${i + 1}" data-type="check" title="Completed successfully">
-                                ✓
+                        <div class="subject-checkbox-container">
+                            <div class="checkbox-row">
+                                <span class="subject-label physics-label">PHY:</span>
+                                <div class="checkbox-group">
+                                    <div class="custom-checkbox" data-day="${i + 1}" data-subject="physics" data-type="check" title="Physics completed successfully">✓</div>
+                                    <div class="custom-checkbox" data-day="${i + 1}" data-subject="physics" data-type="cross" title="Physics not completed">✗</div>
+                                </div>
                             </div>
-                            <div class="custom-checkbox" data-day="${i + 1}" data-type="cross" title="Did not follow routine">
-                                ✗
+                            <div class="checkbox-row">
+                                <span class="subject-label math-label">MATH:</span>
+                                <div class="checkbox-group">
+                                    <div class="custom-checkbox" data-day="${i + 1}" data-subject="math" data-type="check" title="Math completed successfully">✓</div>
+                                    <div class="custom-checkbox" data-day="${i + 1}" data-subject="math" data-type="cross" title="Math not completed">✗</div>
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -472,57 +588,57 @@
             });
         }
 
-        // Load saved data from localStorage
+        // Load saved data
         function loadSavedData() {
-            // Note: Using a different key for June start to avoid conflicts
-            const savedData = localStorage.getItem('studyTimetableProgressJune');
-            if (savedData) {
-                const progressData = JSON.parse(savedData);
+            const savedData = JSON.parse(localStorage.getItem('studyTimetableProgressSeparate') || '{}');
+            
+            // Restore checkbox states
+            Object.keys(savedData).forEach(key => {
+                const [day, subject] = key.split('-');
+                const status = savedData[key];
+                const checkBox = document.querySelector(`.custom-checkbox[data-day="${day}"][data-subject="${subject}"][data-type="check"]`);
+                const crossBox = document.querySelector(`.custom-checkbox[data-day="${day}"][data-subject="${subject}"][data-type="cross"]`);
                 
-                // Restore checkbox states
-                Object.keys(progressData).forEach(day => {
-                    const status = progressData[day];
-                    const checkBox = document.querySelector(`.custom-checkbox[data-day="${day}"][data-type="check"]`);
-                    const crossBox = document.querySelector(`.custom-checkbox[data-day="${day}"][data-type="cross"]`);
-                    
-                    if (status === 'completed') {
-                        checkBox.classList.add('checked');
-                        crossBox.classList.remove('crossed');
-                    } else if (status === 'missed') {
-                        crossBox.classList.add('crossed');
-                        checkBox.classList.remove('checked');
-                    }
-                });
-                
-                updateStats();
-            }
+                if (status === 'completed') {
+                    checkBox.classList.add('checked');
+                    crossBox.classList.remove('crossed');
+                } else if (status === 'missed') {
+                    crossBox.classList.add('crossed');
+                    checkBox.classList.remove('checked');
+                }
+            });
+            
+            updateStats();
         }
 
-        // Save data to localStorage
+        // Save data
         function saveData() {
             const progressData = {};
             
             // Get all checked and crossed boxes
             document.querySelectorAll('.custom-checkbox.checked').forEach(box => {
-                progressData[box.dataset.day] = 'completed';
+                const key = `${box.dataset.day}-${box.dataset.subject}`;
+                progressData[key] = 'completed';
             });
             
             document.querySelectorAll('.custom-checkbox.crossed').forEach(box => {
-                progressData[box.dataset.day] = 'missed';
+                const key = `${box.dataset.day}-${box.dataset.subject}`;
+                progressData[key] = 'missed';
             });
             
-            localStorage.setItem('studyTimetableProgressJune', JSON.stringify(progressData));
+            localStorage.setItem('studyTimetableProgressSeparate', JSON.stringify(progressData));
         }
 
         // Handle checkbox clicks
         function handleCheckboxClick(event) {
             const clickedBox = event.currentTarget;
             const day = clickedBox.dataset.day;
+            const subject = clickedBox.dataset.subject;
             const type = clickedBox.dataset.type;
             
-            // Find the other checkbox in the same row
+            // Find the other checkbox for the same subject in the same row
             const otherBox = document.querySelector(
-                `.custom-checkbox[data-day="${day}"][data-type="${type === 'check' ? 'cross' : 'check'}"]`
+                `.custom-checkbox[data-day="${day}"][data-subject="${subject}"][data-type="${type === 'check' ? 'cross' : 'check'}"]`
             );
             
             // Toggle clicked checkbox
@@ -535,32 +651,40 @@
             }
             
             updateStats();
-            saveData(); // Save progress after each click
+            saveData();
         }
 
         // Update statistics
         function updateStats() {
-            const totalDays = 45;
-            const checkedBoxes = document.querySelectorAll('.custom-checkbox.checked').length;
-            const crossedBoxes = document.querySelectorAll('.custom-checkbox.crossed').length;
-            const completedDays = checkedBoxes + crossedBoxes;
-            const totalHours = checkedBoxes * 6; // 6 hours per successful day
-            const successRate = completedDays > 0 ? Math.round((checkedBoxes / completedDays) * 100) : 0;
+            const physicsCompleted = document.querySelectorAll('.custom-checkbox[data-subject="physics"].checked').length;
+            const mathCompleted = document.querySelectorAll('.custom-checkbox[data-subject="math"].checked').length;
+            const totalHours = (physicsCompleted * 2.5) + (mathCompleted * 3.5);
+            const overallCompleted = physicsCompleted + mathCompleted;
+            const overallProgress = Math.round((overallCompleted / 90) * 100);
             
-            document.getElementById('completedDays').textContent = completedDays;
-            document.getElementById('totalHours').textContent = totalHours;
-            document.getElementById('successRate').textContent = successRate + '%';
+            // Update stat cards
+            document.getElementById('physicsCompleted').textContent = physicsCompleted;
+            document.getElementById('mathCompleted').textContent = mathCompleted;
+            document.getElementById('totalHours').textContent = Math.round(totalHours * 10) / 10;
+            document.getElementById('overallProgress').textContent = overallProgress + '%';
             
-            // Update progress bar
-            const progressPercentage = Math.round((completedDays / totalDays) * 100);
-            document.getElementById('progressFill').style.width = progressPercentage + '%';
-            document.getElementById('progressText').textContent = progressPercentage + '% Complete';
+            // Update progress bars
+            const physicsPercentage = Math.round((physicsCompleted / 45) * 100);
+            const mathPercentage = Math.round((mathCompleted / 45) * 100);
+            
+            document.getElementById('physicsProgressFill').style.width = physicsPercentage + '%';
+            document.getElementById('mathProgressFill').style.width = mathPercentage + '%';
+            document.getElementById('overallProgressFill').style.width = overallProgress + '%';
+            
+            document.getElementById('physicsProgressText').textContent = `${physicsCompleted}/45`;
+            document.getElementById('mathProgressText').textContent = `${mathCompleted}/45`;
+            document.getElementById('overallProgressText').textContent = `${overallCompleted}/90`;
         }
 
         // Clear all saved data
         function clearAllData() {
             if (confirm('Are you sure you want to clear all your progress? This cannot be undone!')) {
-                localStorage.removeItem('studyTimetableProgressJune');
+                localStorage.removeItem('studyTimetableProgressSeparate');
                 
                 // Reset all checkboxes
                 document.querySelectorAll('.custom-checkbox').forEach(box => {
@@ -574,7 +698,7 @@
 
         // Initialize the timetable
         generateTimetable();
-        loadSavedData(); // Load saved progress
+        loadSavedData();
         updateStats();
     </script>
 </body>
